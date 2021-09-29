@@ -1,15 +1,39 @@
 class Clock extends React.Component {
+
+    constructor(props) {
+        super(props);
+        this.state = {date: new Date()};
+    }
+
+    updateTime() {
+        this.setState({
+          date: new Date()
+        });
+      }
+
+    componentDidMount() {
+        this.timer = setInterval(
+          () => this.updateTime(),
+          1000
+        );
+    }
+
+    componentWillUnmount() {
+        clearInterval(this.timer);
+    }
+
+
     render() {
-      return (
+        return (
         <div>
-          <h1>Hello React Students!</h1>
-          <h2>It is {this.props.date.toLocaleTimeString()}.</h2>
+            <h1>Hello React Students!</h1>
+            <h2>It is {this.state.date.toLocaleTimeString()}.</h2>
         </div>
-      );
+        );
     } 
 }
 
 ReactDOM.render(
-    <Clock date={new Date()}/>,
+    <Clock />,
     document.getElementById('root')
 );
